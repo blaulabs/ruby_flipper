@@ -1,0 +1,3 @@
+module RubyFlipper
+  # Your code goes here...
+end
