@@ -1,16 +1,15 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "ruby_flipper/version"
 
 Gem::Specification.new do |s|
   s.name        = "ruby_flipper"
-  s.version     = RubyFlipper::VERSION
+  s.version     = "0.0.1"
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.authors     = ["Thomas Jachmann"]
+  s.email       = ["self@thomasjachmann.com"]
+  s.homepage    = "https://github.com/blaulabs/ruby_flipper"
+  s.summary     = %q{Make switching features on and off easy.}
+  s.description = %q{Most flexible still least verbose feature flipper for ruby projects.}
 
   s.rubyforge_project = "ruby_flipper"
 
