@@ -1,0 +1,29 @@
+= Ruby Flipper
+
+Ruby Flipper makes it easy to define features and switch them on and off. It's configuration DSL provides a very flexible but still not too verbose syntax to achieve your flipping needs.
+
+== Definition
+
+You can define your features inline with your conditions. If some conditions are used by many features, it makes sense to extract those conditions for reuse.
+
+For examples, see spec/fixtures/features.rb and spec/ruby_flipper_spec.rb (section .load which is kind of an end-to-end integration test).
+
+== Usage
+
+To load a feature definition:
+
+  RubyFlipper.load(File.expand_path '../features.rb', __FILE__)
+
+To check whether a feature is on:
+
+  feature?(:hidden_feature) do
+    # do something for that feature
+  end
+
+or
+
+  if feature?(:hidden_feature)
+    # do something for that feature
+  else
+    # do something else
+  end
