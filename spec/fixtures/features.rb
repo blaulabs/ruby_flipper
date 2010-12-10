@@ -33,5 +33,5 @@ feature :patti, :description => 'just for patti', :condition => [
 
 # feature with a complex combination of dynamic and predifined conditions
 feature :sue, :description => 'just for sue', :condition => (Proc.new do
-  (met?(:static_is_cherry) || met?(:dynamic_is_floyd)) && FLIPPER_ENV[:changing] == 'sue'
+  (met?(:static_is_cherry) || condition_met?(:dynamic_is_floyd)) && FLIPPER_ENV[:changing] == 'sue'
 end)
