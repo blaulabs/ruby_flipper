@@ -198,6 +198,39 @@ describe RubyFlipper do
 
       end
 
+      context ':sue' do
+
+        it 'should not be active when static is not cherry when loaded and dynamic is not floyd when called' do
+          FLIPPER_ENV[:dynamic] = 'floyd'
+          load_features
+          FLIPPER_ENV[:dynamic] = 'gavin'
+          FLIPPER_ENV[:changing] = 'sue'
+          RubyFlipper.features[:sue].should_not be_active
+        end
+
+        it 'should not be active when changing is not sue when called' do
+          FLIPPER_ENV[:static] = 'cherry'
+          load_features
+          FLIPPER_ENV[:dynamic] = 'floyd'
+          RubyFlipper.features[:sue].should_not be_active
+        end
+
+        it 'should be active when static is cherry when loaded and changing is sue when called' do
+          FLIPPER_ENV[:static] = 'cherry'
+          load_features
+          FLIPPER_ENV[:changing] = 'sue'
+          RubyFlipper.features[:sue].should be_active
+        end
+
+        it 'should be active when dynamic is floyd when called and changing is sue when called' do
+          load_features
+          FLIPPER_ENV[:dynamic] = 'floyd'
+          FLIPPER_ENV[:changing] = 'sue'
+          RubyFlipper.features[:sue].should be_active
+        end
+
+      end
+
     end
 
   end

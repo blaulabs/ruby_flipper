@@ -3,6 +3,7 @@ module RubyFlipper
   class ConditionNotFoundError < StandardError; end
 
   autoload :Condition, 'ruby_flipper/condition'
+  autoload :ConditionContext, 'ruby_flipper/condition_context'
   autoload :Dsl, 'ruby_flipper/dsl'
   autoload :Feature, 'ruby_flipper/feature'
 

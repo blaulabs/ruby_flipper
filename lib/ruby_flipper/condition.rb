@@ -17,6 +17,8 @@ module RubyFlipper
         referenced_condition = RubyFlipper.conditions[condition]
         raise ConditionNotFoundError, "condition #{condition} is not defined" if referenced_condition.nil?
         referenced_condition.met?
+      elsif condition.is_a?(Proc)
+        !!ConditionContext.new.instance_eval(&condition)
       elsif condition.respond_to?(:call)
         !!condition.call
       else

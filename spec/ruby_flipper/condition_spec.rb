@@ -85,6 +85,17 @@ describe RubyFlipper::Condition do
 
     end
 
+    context 'with a complex proc' do
+
+      it 'should return the met? of the combined referenced conditions' do
+        RubyFlipper.conditions[:true] = RubyFlipper::Condition.new(:true, true)
+        RubyFlipper.conditions[:false] = RubyFlipper::Condition.new(:false, false)
+        RubyFlipper::Condition.condition_met?(lambda { met?(:true) || met?(:false) }).should == true
+        RubyFlipper::Condition.condition_met?(lambda { met?(:true) && met?(:false) }).should == false
+      end
+
+    end
+
   end
 
 end
