@@ -66,7 +66,7 @@ describe RubyFlipper::Condition do
 
     {
       true       => true,
-      "anything" => true,
+      'anything' => true,
       false      => false,
       nil        => false
     }.each do |condition, expected|

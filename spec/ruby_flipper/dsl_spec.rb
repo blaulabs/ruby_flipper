@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe RubyFlipper::Dsl do
 
-  subject { RubyFlipper::Dsl.new }
-
   describe '#condition' do
 
     it 'should store a condition' do
