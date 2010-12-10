@@ -16,13 +16,13 @@ To load a feature definition:
 
 To check whether a feature is on:
 
-  feature?(:hidden_feature) do
+  feature_active?(:hidden_feature) do
     # do something for that feature
   end
 
 or
 
-  if feature?(:hidden_feature)
+  if feature_active?(:hidden_feature)
     # do something for that feature
   else
     # do something else

@@ -1,3 +1,5 @@
+require 'ruby_flipper/object_mixin'
+
 module RubyFlipper
 
   class ConditionNotFoundError < StandardError; end
