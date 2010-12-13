@@ -64,6 +64,10 @@ describe RubyFlipper::Feature do
       RubyFlipper::Feature.new(:feature_name).name.should == :feature_name
     end
 
+    it 'should store the description' do
+      RubyFlipper::Feature.new(:feature_name, :description => 'desc').description.should == 'desc'
+    end
+
     it 'should work with a single static condition' do
       RubyFlipper::Feature.new(:feature_name, true).conditions.should == [true]
     end
@@ -72,9 +76,14 @@ describe RubyFlipper::Feature do
       RubyFlipper::Feature.new(:feature_name, true, :development).conditions.should == [true, :development]
     end
 
-    it 'should work with a dynamic condition' do
+    it 'should work with a dynamic condition as parameter' do
       condition = lambda { true }
       RubyFlipper::Feature.new(:feature_name, condition).conditions.should == [condition]
+    end
+
+    it 'should work with a dynamic condition as block' do
+      condition = lambda { true }
+      RubyFlipper::Feature.new(:feature_name, &condition).conditions.should == [condition]
     end
 
     it 'should work with a combination of static and dynamic conditions' do
@@ -82,9 +91,17 @@ describe RubyFlipper::Feature do
       RubyFlipper::Feature.new(:feature_name, false, :live, condition).conditions.should == [false, :live, condition]
     end
 
-    it 'should work with a combination of arrays and eliminate nil' do
+    it 'should work with conditions given in the opts hash as :condition' do
+      RubyFlipper::Feature.new(:feature_name, :condition => true).conditions.should == [true]
+    end
+
+    it 'should work with conditions given in the opts hash as :conditions' do
+      RubyFlipper::Feature.new(:feature_name, :conditions => false).conditions.should == [false]
+    end
+
+    it 'should work with a combination of arrays, dynamic conditions and conditions given in the opts hash and eliminate nil' do
       condition = lambda { true }
-      RubyFlipper::Feature.new(:feature_name, [false, nil], condition).conditions.should == [false, condition]
+      RubyFlipper::Feature.new(:feature_name, [false, nil], :condition => [nil, 'c'], :conditions => ['c1', 'c2'], &condition).conditions.should == [false, 'c', 'c1', 'c2', condition]
     end
 
   end
