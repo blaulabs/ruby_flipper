@@ -19,7 +19,7 @@ module RubyFlipper
     end
 
     def self.find(name)
-      features[name] || raise(FeatureNotFoundError, "feature #{name} is not defined")
+      features[name] || raise(NotDefinedError, "'#{name}' is not defined")
     end
 
     def self.condition_met?(condition)

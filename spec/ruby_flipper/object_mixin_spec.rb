@@ -58,11 +58,11 @@ describe RubyFlipper::ObjectMixin do
     context 'with a missing feature' do
 
       it 'should raise an error when called without a block and the referenced feature is not defined' do
-        lambda { subject.feature_active?(:missing) }.should raise_error RubyFlipper::FeatureNotFoundError, 'feature missing is not defined'
+        lambda { subject.feature_active?(:missing) }.should raise_error RubyFlipper::NotDefinedError, '\'missing\' is not defined'
       end
 
       it 'should not execute the block and raise an error when called with a block and the referenced feature is not defined' do
-        lambda { subject.feature_active?(:missing) { fail 'the given block should not be called' } }.should raise_error RubyFlipper::FeatureNotFoundError, 'feature missing is not defined'
+        lambda { subject.feature_active?(:missing) { fail 'the given block should not be called' } }.should raise_error RubyFlipper::NotDefinedError, '\'missing\' is not defined'
       end
 
     end

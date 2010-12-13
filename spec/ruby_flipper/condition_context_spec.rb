@@ -10,7 +10,7 @@ describe RubyFlipper::ConditionContext do
     end
 
     it 'should raise an error when the referenced condition is not defined' do
-      lambda { subject.active?(:referenced) }.should raise_error RubyFlipper::FeatureNotFoundError, 'feature referenced is not defined'
+      lambda { subject.active?(:referenced) }.should raise_error RubyFlipper::NotDefinedError, '\'referenced\' is not defined'
     end
 
     it 'should handle multiple conditions as well' do

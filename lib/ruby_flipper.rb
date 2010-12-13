@@ -2,8 +2,7 @@ require 'ruby_flipper/object_mixin'
 
 module RubyFlipper
 
-  class RubyFlipperError < StandardError; end
-  class FeatureNotFoundError < RubyFlipperError; end
+  class NotDefinedError < StandardError; end
 
   autoload :ConditionContext, 'ruby_flipper/condition_context'
   autoload :Dsl, 'ruby_flipper/dsl'

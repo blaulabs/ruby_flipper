@@ -59,7 +59,7 @@ describe RubyFlipper::Feature do
       end
 
       it 'should raise an error when the referenced feature is not defined' do
-        lambda { RubyFlipper::Feature.condition_met?(:missing) }.should raise_error RubyFlipper::FeatureNotFoundError, 'feature missing is not defined'
+        lambda { RubyFlipper::Feature.condition_met?(:missing) }.should raise_error RubyFlipper::NotDefinedError, '\'missing\' is not defined'
       end
 
     end
