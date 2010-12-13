@@ -14,19 +14,19 @@ describe RubyFlipper do
 
         it 'should not be met when static is not cherry when loading' do
           load_features
-          RubyFlipper::Condition.find(:static_is_cherry).should_not be_met
+          RubyFlipper::Feature.find(:static_is_cherry).should_not be_active
         end
 
         it 'should not be met when static is not cherry when loading even when it is when called' do
           load_features
           FLIPPER_ENV[:static] = 'cherry'
-          RubyFlipper::Condition.find(:static_is_cherry).should_not be_met
+          RubyFlipper::Feature.find(:static_is_cherry).should_not be_active
         end
 
         it 'should be met when static is not cherry when called' do
           FLIPPER_ENV[:static] = 'cherry'
           load_features
-          RubyFlipper::Condition.find(:static_is_cherry).should be_met
+          RubyFlipper::Feature.find(:static_is_cherry).should be_active
         end
 
       end
@@ -35,20 +35,20 @@ describe RubyFlipper do
 
         it 'should not be met when dynamic is not floyd when called' do
           load_features
-          RubyFlipper::Condition.find(:dynamic_is_floyd).should_not be_met
+          RubyFlipper::Feature.find(:dynamic_is_floyd).should_not be_active
         end
 
         it 'should not be met when dynamic is not floyd when called even when it was when loaded' do
           FLIPPER_ENV[:dynamic] = 'floyd'
           load_features
           FLIPPER_ENV[:dynamic] = 'sue'
-          RubyFlipper::Condition.find(:dynamic_is_floyd).should_not be_met
+          RubyFlipper::Feature.find(:dynamic_is_floyd).should_not be_active
         end
 
         it 'should be met when dynamic is floyd when called' do
           load_features
           FLIPPER_ENV[:dynamic] = 'floyd'
-          RubyFlipper::Condition.find(:dynamic_is_floyd).should be_met
+          RubyFlipper::Feature.find(:dynamic_is_floyd).should be_active
         end
 
       end
@@ -58,7 +58,7 @@ describe RubyFlipper do
         it 'should not be met when static is not cherry when loaded even when it is when called and dynamic is floyd' do
           load_features
           FLIPPER_ENV[:dynamic] = 'floyd'
-          RubyFlipper::Condition.find(:combined_is_cherry_and_floyd).should_not be_met
+          RubyFlipper::Feature.find(:combined_is_cherry_and_floyd).should_not be_active
         end
 
         it 'should not be met when static is cherry but dynamic is not floyd when called even when it was when loaded' do
@@ -66,7 +66,7 @@ describe RubyFlipper do
           FLIPPER_ENV[:dynamic] = 'floyd'
           load_features
           FLIPPER_ENV[:dynamic] = 'sue'
-          RubyFlipper::Condition.find(:combined_is_cherry_and_floyd).should_not be_met
+          RubyFlipper::Feature.find(:combined_is_cherry_and_floyd).should_not be_active
         end
 
         it 'should be met when static is cherry when loaded and dynamic is floyd when called even when static is not cherry when called and dynamic was not floyd when called' do
@@ -74,7 +74,7 @@ describe RubyFlipper do
           load_features
           FLIPPER_ENV[:static] = 'philip'
           FLIPPER_ENV[:dynamic] = 'floyd'
-          RubyFlipper::Condition.find(:combined_is_cherry_and_floyd).should be_met
+          RubyFlipper::Feature.find(:combined_is_cherry_and_floyd).should be_active
         end
 
       end
@@ -84,20 +84,20 @@ describe RubyFlipper do
         it 'should not be met when changing is not lulu when loaded even when it is gavin when called' do
           load_features
           FLIPPER_ENV[:changing] = 'gavin'
-          RubyFlipper::Condition.find(:combined_is_lulu_first_then_gavin).should_not be_met
+          RubyFlipper::Feature.find(:combined_is_lulu_first_then_gavin).should_not be_active
         end
 
         it 'should not be met when changing is lulu when loaded but it is not gavin when called' do
           FLIPPER_ENV[:changing] = 'lulu'
           load_features
-          RubyFlipper::Condition.find(:combined_is_lulu_first_then_gavin).should_not be_met
+          RubyFlipper::Feature.find(:combined_is_lulu_first_then_gavin).should_not be_active
         end
 
         it 'should be met when changing is lulu when loaded gavin when called' do
           FLIPPER_ENV[:changing] = 'lulu'
           load_features
           FLIPPER_ENV[:changing] = 'gavin'
-          RubyFlipper::Condition.find(:combined_is_lulu_first_then_gavin).should be_met
+          RubyFlipper::Feature.find(:combined_is_lulu_first_then_gavin).should be_active
         end
 
       end

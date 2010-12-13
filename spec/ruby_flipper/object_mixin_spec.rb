@@ -20,7 +20,7 @@ describe RubyFlipper::ObjectMixin do
     context 'with an active feature' do
 
       before(:each) do
-        RubyFlipper::Feature.add(:active, 'active', true)
+        RubyFlipper::Feature.add(:active, true)
       end
 
       it 'should return true when called without a block' do
@@ -40,7 +40,7 @@ describe RubyFlipper::ObjectMixin do
     context 'with an inactive feature' do
 
       before(:each) do
-        RubyFlipper::Feature.add(:inactive, 'inactive', false)
+        RubyFlipper::Feature.add(:inactive, false)
       end
 
       it 'should return false when called without a block' do

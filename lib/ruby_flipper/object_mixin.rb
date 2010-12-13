@@ -7,6 +7,7 @@ module RubyFlipper
       yield if active && block_given?
       active
     end
+    alias :condition_met? :feature_active?
 
   end
 

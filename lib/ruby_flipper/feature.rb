@@ -14,22 +14,40 @@ module RubyFlipper
       @@features = nil
     end
 
-    def self.add(name, description, condition)
-      features[name] = new(name, description, condition)
+    def self.add(name, *conditions, &block)
+      self.features[name] = new(name, *conditions, &block)
     end
 
     def self.find(name)
       features[name] || raise(FeatureNotFoundError, "feature #{name} is not defined")
     end
 
-    attr_reader :name, :description, :condition
+    def self.condition_met?(condition)
+      if condition.is_a?(Symbol)
+        find(condition).active?
+      elsif condition.is_a?(Proc)
+        !!ConditionContext.new.instance_eval(&condition)
+      elsif condition.respond_to?(:call)
+        !!condition.call
+      else
+        !!condition
+      end
+    end
 
-    def initialize(name, description, condition)
-      @name, @description, @condition = name, description, Condition.new(:inline_condition, condition)
+    attr_reader :name, :description, :conditions
+
+    def initialize(name, *conditions, &block)
+      if conditions.last.is_a?(Hash)
+        opts = conditions.pop
+        @description = opts[:description]
+        conditions << opts[:condition]
+        conditions << opts[:conditions]
+      end
+      @name, @conditions = name, [conditions, block].flatten.compact
     end
 
     def active?
-      @condition.met?
+      conditions.map {|condition| self.class.condition_met?(condition)}.all?
     end
 
   end

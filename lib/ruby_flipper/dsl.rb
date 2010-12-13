@@ -2,13 +2,10 @@ module RubyFlipper
 
   class Dsl
 
-    def condition(name, *conditions, &block)
-      Condition.add(name, conditions, block)
+    def feature(name, *conditions, &block)
+      Feature.add(name, *conditions, &block)
     end
-
-    def feature(name, opts)
-      Feature.add(name, opts[:description], opts[:condition])
-    end
+    alias :condition :feature
 
   end
 

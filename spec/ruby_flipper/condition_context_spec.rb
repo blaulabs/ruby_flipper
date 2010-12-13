@@ -2,23 +2,23 @@ require 'spec_helper'
 
 describe RubyFlipper::ConditionContext do
 
-  describe '#met?' do
+  describe '#active?' do
 
     it 'should return the met? of the referenced condition' do
-      RubyFlipper::Condition.add(:referenced, true)
-      subject.met?(:referenced).should == true
+      RubyFlipper::Feature.add(:referenced, true)
+      subject.active?(:referenced).should == true
     end
 
     it 'should raise an error when the referenced condition is not defined' do
-      lambda { subject.met?(:referenced) }.should raise_error RubyFlipper::ConditionNotFoundError, 'condition referenced is not defined'
+      lambda { subject.active?(:referenced) }.should raise_error RubyFlipper::FeatureNotFoundError, 'feature referenced is not defined'
     end
 
     it 'should handle multiple conditions as well' do
-      RubyFlipper::Condition.add(:referenced1, true)
-      RubyFlipper::Condition.add(:referenced2, false)
-      subject.met?(:referenced1, :referenced2).should == false
-      RubyFlipper::Condition.add(:referenced2, true)
-      subject.met?(:referenced1, :referenced2).should == true
+      RubyFlipper::Feature.add(:referenced1, true)
+      RubyFlipper::Feature.add(:referenced2, false)
+      subject.active?(:referenced1, :referenced2).should == false
+      RubyFlipper::Feature.add(:referenced2, true)
+      subject.active?(:referenced1, :referenced2).should == true
     end
 
   end
