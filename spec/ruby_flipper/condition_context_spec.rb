@@ -14,7 +14,7 @@ describe RubyFlipper::ConditionContext do
       subject.active?(:referenced).should == false
     end
 
-    it 'should raise an error when the referenced condition is not defined' do
+    it 'should raise an error when the referenced feature is not defined' do
       lambda { subject.active?(:referenced) }.should raise_error RubyFlipper::NotDefinedError, '\'referenced\' is not defined'
     end
 

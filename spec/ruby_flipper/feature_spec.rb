@@ -45,6 +45,19 @@ describe RubyFlipper::Feature do
 
   end
 
+  describe '.find' do
+
+    it 'should return the stored feature' do
+      feature = RubyFlipper::Feature.add(:feature_name)
+      RubyFlipper::Feature.find(:feature_name).should == feature
+    end
+
+    it 'should raise an error when the referenced feature is not defined' do
+      lambda { RubyFlipper::Feature.find(:feature_name) }.should raise_error RubyFlipper::NotDefinedError, '\'feature_name\' is not defined'
+    end
+
+  end
+
   describe 'initializer' do
 
     it 'should store the name' do
