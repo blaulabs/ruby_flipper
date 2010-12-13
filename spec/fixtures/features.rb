@@ -25,13 +25,14 @@ feature :floyd, :description => 'just for floyd', :condition => :dynamic_is_floy
 feature :philip, :description => 'just for philip', :condition => lambda { FLIPPER_ENV[:dynamic] == 'philip' }
 
 # feature depending on array of a static condition, a predefined condition and a dynamic condition (lambda)
-feature :patti, :description => 'just for patti', :condition => [
+# given in :conditions (can be both :condition/:conditions)
+feature :patti, :description => 'just for patti', :conditions => [
   FLIPPER_ENV[:changing] == 'patti',
   :dynamic_is_floyd,
   lambda { FLIPPER_ENV[:changing] == 'gavin'}
 ]
 
-# feature with a complex combination of dynamic and predifined conditions
-feature :sue, :description => 'just for sue', :condition => (Proc.new do
+# feature with a complex combination of dynamic and predifined conditions given as a block
+feature :sue, :description => 'just for sue' do
   (active?(:static_is_cherry) || active?(:dynamic_is_floyd)) && FLIPPER_ENV[:changing] == 'sue'
-end)
+end
