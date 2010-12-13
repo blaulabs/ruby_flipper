@@ -84,7 +84,9 @@ For more examples, see spec/fixtures/features.rb and spec/ruby_flipper_spec.rb (
 If you have a lot of dependent features with shared conditions you can clean up your definition file by explicitly defining conditions that aren't used as features but just as conditions real features depend on.
 
   condition :development, Rails.env.development?
-  condition :admin { User.current.is_admin? }
+  condition :admin do
+    User.current.is_admin?
+  end
   
   feature :user_administration, :development, :admin
   feature :new_feature, :development
