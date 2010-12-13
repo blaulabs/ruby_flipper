@@ -2,24 +2,20 @@ module RubyFlipper
 
   class Feature
 
-  private
-
-    def self.features
+    def self.all
       @@features ||= {}
     end
-
-  public
 
     def self.reset
       @@features = nil
     end
 
     def self.add(name, *conditions, &block)
-      self.features[name] = new(name, *conditions, &block)
+      all[name] = new(name, *conditions, &block)
     end
 
     def self.find(name)
-      features[name] || raise(NotDefinedError, "'#{name}' is not defined")
+      all[name] || raise(NotDefinedError, "'#{name}' is not defined")
     end
 
     def self.condition_met?(condition)

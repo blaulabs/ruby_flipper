@@ -2,6 +2,25 @@ require 'spec_helper'
 
 describe RubyFlipper::Feature do
 
+  describe '.all' do
+
+    it 'should be a hash' do
+      RubyFlipper::Feature.all.should == {}
+    end
+
+  end
+
+  describe '.reset' do
+
+    it 'should reset the all hash' do
+      RubyFlipper::Feature.add(:inactive, false)
+      RubyFlipper::Feature.all.should_not be_empty
+      RubyFlipper::Feature.reset
+      RubyFlipper::Feature.all.should be_empty
+    end
+
+  end
+
   describe 'initializer' do
 
     it 'should store the name' do
