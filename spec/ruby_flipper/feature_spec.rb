@@ -21,6 +21,30 @@ describe RubyFlipper::Feature do
 
   end
 
+  describe '.add' do
+
+    it 'should call new with only a name and store the feature' do
+      RubyFlipper::Feature.expects(:new).with(:feature_name).returns(:feature)
+      RubyFlipper::Feature.add(:feature_name).should == :feature
+      RubyFlipper::Feature.all[:feature_name].should == :feature
+    end
+
+    it 'should call add with a name and conditions and store the feature' do
+      RubyFlipper::Feature.expects(:new).with(:feature_name, :one, :two).returns(:feature)
+      RubyFlipper::Feature.add(:feature_name, :one, :two).should == :feature
+      RubyFlipper::Feature.all[:feature_name].should == :feature
+    end
+
+    it 'should call add with a name, conditions and a block and store the feature' do
+      block = lambda {}
+      # cannot mock this since mocha doesn't allow to test for a proc [thomas, 2010-12-13]
+      feature = RubyFlipper::Feature.add(:feature_name, :one, :two, &block)
+      feature.conditions.should == [:one, :two, block]
+      RubyFlipper::Feature.all[:feature_name].should == feature
+    end
+
+  end
+
   describe 'initializer' do
 
     it 'should store the name' do
