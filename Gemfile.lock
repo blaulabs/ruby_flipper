@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby_flipper (0.0.1)
+    ruby_flipper (0.0.3)
 
 GEM
   remote: http://rubygems.org/

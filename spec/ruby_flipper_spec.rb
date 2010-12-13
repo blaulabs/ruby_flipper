@@ -2,7 +2,74 @@ require 'spec_helper'
 
 describe RubyFlipper do
 
+  describe '.config' do
+
+    it 'should initially be an empty hash' do
+      RubyFlipper.config.should == {}
+    end
+
+    it 'should be changeable' do
+      RubyFlipper.config[:key] = :value
+      RubyFlipper.config.should == {:key => :value}
+    end
+
+    it 'should be overwritable' do
+      RubyFlipper.config[:key] = :value
+      RubyFlipper.config = {:another_key => :another_value}
+      RubyFlipper.config.should == {:another_key => :another_value}
+    end
+
+  end
+
   describe '.load' do
+
+    it 'should load the given file' do
+      File.expects(:exist?).with('features.rb').returns(true)
+      IO.expects(:read).with('features.rb').returns('feature :loaded_feature')
+      RubyFlipper.load('features.rb')
+      RubyFlipper::Feature.find(:loaded_feature).should be_a(RubyFlipper::Feature)
+    end
+
+    it 'should load the configured file when none given' do
+      File.expects(:exist?).with('configured_features.rb').returns(true)
+      IO.expects(:read).with('configured_features.rb').returns('feature :loaded_feature_from_configured')
+      RubyFlipper.config[:feature_file] = 'configured_features.rb'
+      RubyFlipper.load
+      RubyFlipper::Feature.find(:loaded_feature_from_configured).should be_a(RubyFlipper::Feature)
+    end
+
+    it 'should raise an error when a file is neither given nor configured' do
+      File.expects(:exist?).never
+      IO.expects(:read).never
+      lambda { RubyFlipper.load }.should raise_error ArgumentError, 'you have to either specify or configure a feature definition file in RubyFlipper::config[:feature_file]'
+      RubyFlipper::Feature.all.should be_empty
+    end
+
+    it 'should fail silently if file does not exist' do
+      File.expects(:exist?).with('features.rb').returns(false)
+      IO.expects(:read).never
+      RubyFlipper.load('features.rb')
+      RubyFlipper::Feature.all.should be_empty
+    end
+
+  end
+
+  describe '.reset' do
+
+    it 'should clean config hash' do
+      RubyFlipper.config[:key] = :value
+      RubyFlipper.reset
+      RubyFlipper.config.should == {}
+    end
+
+    it 'should reset features' do
+      RubyFlipper::Feature.expects(:reset).twice # once from here and once from spec_helper
+      RubyFlipper.reset
+    end
+
+  end
+
+  context 'integration specs using spec/fixtures/features.rb' do
 
     def load_features
       RubyFlipper.load(File.expand_path '../fixtures/features.rb', __FILE__)

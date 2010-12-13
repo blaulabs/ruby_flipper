@@ -76,7 +76,7 @@ This defines a feature that is only enabled when the feature :development_featur
 
 === More
 
-For more examples, see spec/fixtures/features.rb and spec/ruby_flipper_spec.rb (section .load which is kind of an end-to-end integration test).
+For more examples, see spec/fixtures/features.rb and spec/ruby_flipper_spec.rb (section 'integration specs using spec/fixtures/features.rb' which is an end-to-end integration test).
 
 
 == Condition Definitions
