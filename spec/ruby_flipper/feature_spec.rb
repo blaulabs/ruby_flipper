@@ -157,6 +157,10 @@ describe RubyFlipper::Feature do
 
   describe '#active?' do
 
+    it 'should return true when no conditions are given (unconditionally active)' do
+      RubyFlipper::Feature.new(:feature_name).active?.should == true
+    end
+
     it 'should return false when not all conditions are met (with dynamic)' do
       RubyFlipper::Feature.new(:feature_name, true, lambda { false }).active?.should == false
     end
