@@ -76,7 +76,7 @@ describe RubyFlipper::Condition do
       end
 
       it "should call anything callable and return #{expected} when it returns #{condition}" do
-        RubyFlipper::Condition.met?(Struct.new(:call).new(condition)).should == expected
+        RubyFlipper::Condition.met?(stub(:call => condition)).should == expected
       end
 
       it "should return #{expected} when the condition is #{condition}" do

@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "ci_reporter", "~> 1.6.3"
   s.add_development_dependency "rspec", "~> 2.0.1"
+  s.add_development_dependency "mocha", "~> 0.9.10"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
