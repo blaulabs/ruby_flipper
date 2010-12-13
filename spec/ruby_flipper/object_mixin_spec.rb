@@ -20,7 +20,7 @@ describe RubyFlipper::ObjectMixin do
     context 'with an active feature' do
 
       before(:each) do
-        RubyFlipper.features[:active] = RubyFlipper::Feature.new(:active, 'active', true)
+        RubyFlipper::Feature.add(:active, 'active', true)
       end
 
       it 'should return true when called without a block' do
@@ -40,7 +40,7 @@ describe RubyFlipper::ObjectMixin do
     context 'with an inactive feature' do
 
       before(:each) do
-        RubyFlipper.features[:inactive] = RubyFlipper::Feature.new(:active, 'inactive', false)
+        RubyFlipper::Feature.add(:inactive, 'inactive', false)
       end
 
       it 'should return false when called without a block' do
@@ -51,6 +51,18 @@ describe RubyFlipper::ObjectMixin do
         subject.feature_active?(:inactive) do
           fail 'the given block should not be called'
         end.should == false
+      end
+
+    end
+
+    context 'with a missing feature' do
+
+      it 'should raise an error when called without a block and the referenced feature is not defined' do
+        lambda { subject.feature_active?(:missing) }.should raise_error RubyFlipper::FeatureNotFoundError, 'feature missing is not defined'
+      end
+
+      it 'should not execute the block and raise an error when called with a block and the referenced feature is not defined' do
+        lambda { subject.feature_active?(:missing) { fail 'the given block should not be called' } }.should raise_error RubyFlipper::FeatureNotFoundError, 'feature missing is not defined'
       end
 
     end

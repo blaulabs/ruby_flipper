@@ -9,7 +9,7 @@ describe RubyFlipper::Dsl do
       condition = subject.condition :condition_name, true, false, &block
       condition.should be_a(RubyFlipper::Condition)
       condition.conditions.should == [true, false, block]
-      RubyFlipper.conditions[:condition_name].should == condition
+      RubyFlipper::Condition.find(:condition_name).should == condition
     end
 
   end
@@ -23,7 +23,7 @@ describe RubyFlipper::Dsl do
       condition = feature.condition
       condition.should be_a(RubyFlipper::Condition)
       condition.conditions.should == [:cond]
-      RubyFlipper.features[:feature_name].should == feature
+      RubyFlipper::Feature.find(:feature_name).should == feature
     end
 
   end

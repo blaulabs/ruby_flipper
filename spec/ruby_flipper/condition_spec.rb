@@ -49,17 +49,17 @@ describe RubyFlipper::Condition do
 
   end
 
-  describe '.condition_met?' do
+  describe '.met?' do
 
     context 'with a symbol' do
 
       it 'should return the met? of the referenced condition' do
-        RubyFlipper.conditions[:referenced] = RubyFlipper::Condition.new(:referenced, true)
-        RubyFlipper::Condition.condition_met?(:referenced).should == true
+        RubyFlipper::Condition.add(:referenced, true)
+        RubyFlipper::Condition.met?(:referenced).should == true
       end
 
       it 'should raise an error when the referenced condition is not defined' do
-        lambda { RubyFlipper::Condition.condition_met?(:referenced) }.should raise_error RubyFlipper::ConditionNotFoundError, 'condition referenced is not defined'
+        lambda { RubyFlipper::Condition.met?(:missing) }.should raise_error RubyFlipper::ConditionNotFoundError, 'condition missing is not defined'
       end
 
     end
@@ -72,15 +72,15 @@ describe RubyFlipper::Condition do
     }.each do |condition, expected|
 
       it "should call a given proc and return #{expected} when it returns #{condition}" do
-        RubyFlipper::Condition.condition_met?(lambda { condition }).should == expected
+        RubyFlipper::Condition.met?(lambda { condition }).should == expected
       end
 
       it "should call anything callable and return #{expected} when it returns #{condition}" do
-        RubyFlipper::Condition.condition_met?(Struct.new(:call).new(condition)).should == expected
+        RubyFlipper::Condition.met?(Struct.new(:call).new(condition)).should == expected
       end
 
       it "should return #{expected} when the condition is #{condition}" do
-        RubyFlipper::Condition.condition_met?(condition).should == expected
+        RubyFlipper::Condition.met?(condition).should == expected
       end
 
     end
@@ -88,10 +88,10 @@ describe RubyFlipper::Condition do
     context 'with a complex proc' do
 
       it 'should return the met? of the combined referenced conditions' do
-        RubyFlipper.conditions[:true] = RubyFlipper::Condition.new(:true, true)
-        RubyFlipper.conditions[:false] = RubyFlipper::Condition.new(:false, false)
-        RubyFlipper::Condition.condition_met?(lambda { met?(:true) || met?(:false) }).should == true
-        RubyFlipper::Condition.condition_met?(lambda { met?(:true) && met?(:false) }).should == false
+        RubyFlipper::Condition.add(:true, true)
+        RubyFlipper::Condition.add(:false, false)
+        RubyFlipper::Condition.met?(lambda { met?(:true) || met?(:false) }).should == true
+        RubyFlipper::Condition.met?(lambda { met?(:true) && met?(:false) }).should == false
       end
 
     end

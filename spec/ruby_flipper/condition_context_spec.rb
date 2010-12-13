@@ -5,7 +5,7 @@ describe RubyFlipper::ConditionContext do
   describe '#met?' do
 
     it 'should return the met? of the referenced condition' do
-      RubyFlipper.conditions[:referenced] = RubyFlipper::Condition.new(:referenced, true)
+      RubyFlipper::Condition.add(:referenced, true)
       subject.met?(:referenced).should == true
     end
 
@@ -14,10 +14,10 @@ describe RubyFlipper::ConditionContext do
     end
 
     it 'should handle multiple conditions as well' do
-      RubyFlipper.conditions[:referenced1] = RubyFlipper::Condition.new(:referenced1, true)
-      RubyFlipper.conditions[:referenced2] = RubyFlipper::Condition.new(:referenced2, false)
+      RubyFlipper::Condition.add(:referenced1, true)
+      RubyFlipper::Condition.add(:referenced2, false)
       subject.met?(:referenced1, :referenced2).should == false
-      RubyFlipper.conditions[:referenced2] = RubyFlipper::Condition.new(:referenced2, true)
+      RubyFlipper::Condition.add(:referenced2, true)
       subject.met?(:referenced1, :referenced2).should == true
     end
 

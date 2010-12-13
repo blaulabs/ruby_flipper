@@ -3,7 +3,7 @@ module RubyFlipper
   module ObjectMixin
 
     def feature_active?(name)
-      active = RubyFlipper.features[name].active?
+      active = Feature.find(name).active?
       yield if active && block_given?
       active
     end
