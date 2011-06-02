@@ -2,4 +2,3 @@ pkg/*
 *.gem
 .bundle
 spec/reports
-Gemfile.lock
