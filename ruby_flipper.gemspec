@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "ruby_flipper"
 
-  s.add_development_dependency "ci_reporter", "~> 1.6.3"
-  s.add_development_dependency "rspec", "~> 2.0.1"
-  s.add_development_dependency "mocha", "~> 0.9.10"
+  s.add_development_dependency "ci_reporter", "~> 1.6.5"
+  s.add_development_dependency "rspec", "~> 2.6.0"
+  s.add_development_dependency "mocha", "~> 0.9.12"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
