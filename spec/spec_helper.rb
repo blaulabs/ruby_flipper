@@ -3,7 +3,7 @@ Bundler.require(:default, :development)
 
 FLIPPER_ENV = {}
 
-Rspec.configure do |config|
+RSpec.configure do |config|
   config.mock_with :mocha
   config.after(:each) do
     RubyFlipper.reset
