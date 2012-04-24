@@ -282,6 +282,18 @@ describe RubyFlipper do
 
       end
 
+      context ':argument' do
+        it 'should be active when called with arg' do
+          load_features
+          RubyFlipper::Feature.find(:argument).active?(true).should be_true
+        end
+
+        it 'should not be active when called without an argument' do
+          load_features
+          RubyFlipper::Feature.find(:argument).should_not be_active
+        end
+      end
+
     end
 
   end

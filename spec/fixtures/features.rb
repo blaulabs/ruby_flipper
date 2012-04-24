@@ -36,3 +36,8 @@ feature :patti, :description => 'just for patti', :conditions => [
 feature :sue, :description => 'just for sue' do
   (active?(:static_is_cherry) || active?(:dynamic_is_floyd)) && FLIPPER_ENV[:changing] == 'sue'
 end
+
+# feature with a block relying on a runtime argument
+feature :argument do |arg|
+  !arg.nil?
+end
