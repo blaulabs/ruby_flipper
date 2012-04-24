@@ -173,6 +173,17 @@ describe RubyFlipper::Feature do
       RubyFlipper::Feature.new(:feature_name, true, true).active?.should == true
     end
 
+    context 'with a dynamic argument' do
+      subject { RubyFlipper::Feature.new(:feature_name, proc { |arg| arg == 'active' }) }
+
+      it 'should return false when not all conditions are met' do
+        subject.active?('inactive').should == false
+      end
+
+      it 'should return true when all conditions are met' do
+        subject.active?('active').should == true
+      end
+    end
   end
 
 end
