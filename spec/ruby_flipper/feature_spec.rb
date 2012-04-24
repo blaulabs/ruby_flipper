@@ -36,7 +36,7 @@ describe RubyFlipper::Feature do
     end
 
     it 'should call add with a name, conditions and a block and store the feature' do
-      block = lambda {}
+      block = proc {}
       # cannot mock this since mocha doesn't allow to test for a proc [thomas, 2010-12-13]
       feature = RubyFlipper::Feature.add(:feature_name, :one, :two, &block)
       feature.conditions.should == [:one, :two, block]
@@ -81,7 +81,7 @@ describe RubyFlipper::Feature do
     }.each do |condition, expected|
 
       it "should call a given proc and return #{expected} when it returns #{condition}" do
-        RubyFlipper::Feature.condition_met?(lambda { condition }).should == expected
+        RubyFlipper::Feature.condition_met?(proc { condition }).should == expected
       end
 
       it "should call anything callable and return #{expected} when it returns #{condition}" do
@@ -99,8 +99,8 @@ describe RubyFlipper::Feature do
       it 'should return the met? of the combined referenced conditions' do
         RubyFlipper::Feature.add(:true, true)
         RubyFlipper::Feature.add(:false, false)
-        RubyFlipper::Feature.condition_met?(lambda { active?(:true) || active?(:false) }).should == true
-        RubyFlipper::Feature.condition_met?(lambda { active?(:true) && active?(:false) }).should == false
+        RubyFlipper::Feature.condition_met?(proc { active?(:true) || active?(:false) }).should == true
+        RubyFlipper::Feature.condition_met?(proc { active?(:true) && active?(:false) }).should == false
       end
 
     end
@@ -126,17 +126,17 @@ describe RubyFlipper::Feature do
     end
 
     it 'should work with a dynamic condition as parameter' do
-      condition = lambda { true }
+      condition = proc { true }
       RubyFlipper::Feature.new(:feature_name, condition).conditions.should == [condition]
     end
 
     it 'should work with a dynamic condition as block' do
-      condition = lambda { true }
+      condition = proc { true }
       RubyFlipper::Feature.new(:feature_name, &condition).conditions.should == [condition]
     end
 
     it 'should work with a combination of static and dynamic conditions' do
-      condition = lambda { true }
+      condition = proc { true }
       RubyFlipper::Feature.new(:feature_name, false, :live, condition).conditions.should == [false, :live, condition]
     end
 
@@ -149,7 +149,7 @@ describe RubyFlipper::Feature do
     end
 
     it 'should work with a combination of arrays, dynamic conditions and conditions given in the opts hash and eliminate nil' do
-      condition = lambda { true }
+      condition = proc { true }
       RubyFlipper::Feature.new(:feature_name, [false, nil], :condition => [nil, 'c'], :conditions => ['c1', 'c2'], &condition).conditions.should == [false, 'c', 'c1', 'c2', condition]
     end
 
@@ -162,7 +162,7 @@ describe RubyFlipper::Feature do
     end
 
     it 'should return false when not all conditions are met (with dynamic)' do
-      RubyFlipper::Feature.new(:feature_name, true, lambda { false }).active?.should == false
+      RubyFlipper::Feature.new(:feature_name, true, proc { false }).active?.should == false
     end
 
     it 'should return false when not all conditions are met (only static)' do
