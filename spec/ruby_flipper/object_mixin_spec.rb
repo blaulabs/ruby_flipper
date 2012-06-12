@@ -55,6 +55,39 @@ describe RubyFlipper::ObjectMixin do
 
     end
 
+    context 'with a dynamic feature' do
+
+      before(:each) do
+        RubyFlipper::Feature.add(:dynamic, proc { |arg| arg == 'active' })
+      end
+
+      context 'that is inactive' do
+        it 'should return false when called without a block' do
+          subject.feature_active?(:dynamic, 'inactive').should == false
+        end
+
+        it 'should not execute the block and return false when called with a block' do
+          subject.feature_active?(:dynamic, 'inactive') do
+            fail 'the given block should not be called'
+          end.should == false
+        end
+      end
+
+      context 'that is active' do
+        it 'should return true when called without a block' do
+          subject.feature_active?(:dynamic, 'active').should == true
+        end
+
+        it 'should execute the block and return true when called with a block' do
+          var = 'before'
+          subject.feature_active?(:dynamic, 'active') do
+            var = 'after'
+          end.should == true
+          var.should == 'after'
+        end
+      end
+    end
+
     context 'with a missing feature' do
 
       it 'should raise an error when called without a block and the referenced feature is not defined' do

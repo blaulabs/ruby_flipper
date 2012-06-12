@@ -18,11 +18,11 @@ module RubyFlipper
       all[name] || raise(NotDefinedError, "'#{name}' is not defined")
     end
 
-    def self.condition_met?(condition)
+    def self.condition_met?(condition, *args)
       if condition.is_a?(Symbol)
         find(condition).active?
       elsif condition.is_a?(Proc)
-        !!ConditionContext.new.instance_eval(&condition)
+        !!ConditionContext.new.instance_exec(*args, &condition)
       elsif condition.respond_to?(:call)
         !!condition.call
       else
@@ -42,8 +42,8 @@ module RubyFlipper
       @name, @conditions = name, [conditions, block].flatten.compact
     end
 
-    def active?
-      conditions.map {|condition| self.class.condition_met?(condition)}.all?
+    def active?(*args)
+      conditions.map {|condition| self.class.condition_met?(condition, *args)}.all?
     end
 
   end
