@@ -1,4 +1,5 @@
 # Ruby Flipper
+![Travis-CI](https://secure.travis-ci.org/blaulabs/ruby_flipper.png)
 
 Ruby Flipper makes it easy to define features and switch them on and off. It's configuration DSL provides a very flexible but still not too verbose syntax to fulfil your flipping needs.
 
