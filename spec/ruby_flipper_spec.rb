@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe RubyFlipper do
@@ -294,6 +295,18 @@ describe RubyFlipper do
         end
       end
 
+    end
+
+    context "ruby 1.8" do
+      #warning: multiple values for a block parameter (0 for 1)
+      it 'should not show warnings' do
+        $VERBOSE=true
+        @verbose = true
+        RubyFlipper.silence_warnings do
+          @verbose = $VERBOSE
+        end
+        @verbose.should be_nil
+      end
     end
 
   end

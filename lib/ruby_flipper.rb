@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'ruby_flipper/object_mixin'
 
 module RubyFlipper
@@ -25,6 +26,14 @@ module RubyFlipper
   def self.reset
     @@config = nil
     Feature.reset
+  end
+
+  def self.silence_warnings
+    warn_level = $VERBOSE
+    $VERBOSE = nil
+    yield
+  ensure
+    $VERBOSE = warn_level
   end
 
 end

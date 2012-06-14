@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RubyFlipper
 
   class Feature
@@ -22,7 +23,9 @@ module RubyFlipper
       if condition.is_a?(Symbol)
         find(condition).active?
       elsif condition.is_a?(Proc)
-        !!ConditionContext.new.instance_exec(*args, &condition)
+        RubyFlipper.silence_warnings do
+          !!ConditionContext.new.instance_exec(*args, &condition)
+        end
       elsif condition.respond_to?(:call)
         !!condition.call
       else
