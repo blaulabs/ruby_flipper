@@ -173,4 +173,4 @@ end
 
 ## License
 
-ruby_flipper is released under the {MIT License}[http://www.opensource.org/licenses/MIT].
+ruby_flipper is released under the [MIT License](http://www.opensource.org/licenses/MIT).
