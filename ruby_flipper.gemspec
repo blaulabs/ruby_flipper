@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/blaulabs/ruby_flipper"
   s.summary     = %q{Make switching features on and off easy.}
   s.description = %q{Most flexible still least verbose feature flipper for ruby projects.}
+  s.license     = "MIT"
 
   s.rubyforge_project = "ruby_flipper"
 
