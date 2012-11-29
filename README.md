@@ -170,3 +170,7 @@ end
 ## Contributors:
 
 - Thanks to [Ryan Ahearn](https://github.com/rahearn) for implementing dynamic parameters to `feature_active?`
+
+## License
+
+ruby_flipper is released under the {MIT License}[http://www.opensource.org/licenses/MIT].
