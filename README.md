@@ -90,7 +90,7 @@ This defines a feature that is only active when the feature :development_feature
 A combined condition is an array of other conditions. Any type of condition can be combined in an array. All conditions have to be met for a feature to be active.
 
 ```ruby
-feature :combined_feature, [:development_feature, lambda { User.current.name ## 'patti' }]
+feature :combined_feature, [:development_feature, lambda { User.current.name == 'patti' }]
 ```
 
 This defines a feature that is only enabled when the feature :development_feature is enbled and the current user is 'patti'.
