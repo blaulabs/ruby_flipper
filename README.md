@@ -18,6 +18,8 @@ This configuration can be reset by calling:
 RubyFlipper.reset
 ```
 
+If you're using Ruby Flipper with rails, it will autoload your features for you if they are defined in config/features.rb
+
 
 ## Feature Definitions
 
