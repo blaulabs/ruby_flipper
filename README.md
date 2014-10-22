@@ -33,8 +33,8 @@ You can specify conditions that are used to determine whether a feature is activ
 
 ```ruby
 feature :conditional_feature_with_parameter, false
-feature :conditional_feature_with_condition_opt, :condition #> false
-feature :conditional_feature_with_conditions_opt, :conditions #> false
+feature :conditional_feature_with_condition_opt, :condition => false
+feature :conditional_feature_with_conditions_opt, :conditions => false
 ```
 
 In the examples above, the features are statically disabled. You can use three different types of conditions.
@@ -45,7 +45,7 @@ A static condition is a boolean that is evaluated when the feature definitions a
 
 ```ruby
 feature :development_feature, Rails.env.development?
-```ruby
+```
 
 This defines a feature that is only active in Rails' development mode.
 
@@ -64,7 +64,7 @@ This defines a feature that is only active when the feature :development_feature
 A dynamic condition is a proc (or anything that responds to :call) that will be evaluated each time the state of a feature is checked. This can be used to activate/deactivate features dynamically depending on variables that change during runtime.
 
 ```ruby
-feature :admin_feature, condition #> lambda { User.current.is_admin? }
+feature :admin_feature, condition => lambda { User.current.is_admin? }
 ```
 
 This defines a feature that is only active when the current user is an admin (the user specific stuff must be implemented somewhere else).
@@ -158,7 +158,7 @@ This method is defined on Object, so it is available anywhere you might ever nee
 Last and least, you can describe your features, for example when you use ticket numbers or anything other cryptic for your feature names. The description isn't used anywhere yet, but it might make your code more readable.
 
 ```ruby
-feature :feature_452, :development, :description #> 'Feature 452: An end user can change his data on his profile page.'
+feature :feature_452, :development, :description => 'Feature 452: An end user can change his data on his profile page.'
 ```
 
 You could also just use comments for that, but giving this to ruby flipper in code enables you to evaluate your features and print lists containing the description.
