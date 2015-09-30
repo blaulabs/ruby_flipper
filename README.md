@@ -140,7 +140,7 @@ else
 end
 ```
 
-Its also possible to pass arbitary arguments to `feature_active?` like so:
+Its also possible to pass arbitrary arguments to `feature_active?` like so:
   
 ```ruby
 if feature_active?(:hidden_feature, "secret_sauce")
